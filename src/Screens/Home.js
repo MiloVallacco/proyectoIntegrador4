@@ -1,9 +1,14 @@
 import React, {Component} from "react";
 import { View, Text,  StyleSheet} from "react-native";
+import { db, auth } from '../fireBase/Config';
 
 class Home extends Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+        posts: [],
+        loading: true,
+    };
     }
 
     render(){
