@@ -1,53 +1,130 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {Component} from "react";
+import { View, Text, Pressable, FlatList } from "react-native";
+import { StyleSheet} from "react-native"
+import { auth, db } from "../fireBase/Config"
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-  }
+class Profile extends Component{
+    constructor(props) {
+        super(props);
+        this.state ={
+            userPosteos: [],
+            userName: ""
+        }
+    }
 
-  render() {
-    return (
-      <View style={styles.contenedor}>
+    componentDidMount() {
+        this.dataUsuario();
+        this.dataPosteos();
+    }
 
-        <Text style={styles.texto}>Profile</Text>
-      
+    dataUsuario(){
+        db.collection("users").where("email", "==", auth.currentUser.email).onSnapshot(
+            docs => {
+                let userName = "";
+                docs.forEach(doc => {
+                    userName = doc.data().userName;
+                })
+                this.setState({ userName: userName });
+            }
+        )
+    }
 
-        <Pressable  style={styles.boton} onPress={() => this.props.navigation.navigate("Login")}>
+    dataPosteos(){
+        db.collection('posts').onSnapshot(
+            docs => {
+                let posteos = [];
+                let userEmail = auth.currentUser.email;
+                
+                docs.forEach(doc => {
+                    let postData = doc.data();
+                    if(postData.user === userEmail) {
+                        posteos.push({
+                            id: doc.id,
+                            data: postData
+                        })
+                    }
+                })
+                
+                this.setState({
+                    userPosteos: posteos
+                })
+            }
+        )
+    }
 
-            <Text 
-                 style={styles.textoBoton}>Desloguearte
-            </Text>
+    Logout(){
+        auth.signOut();
+        this.props.navigation.navigate("Login");
+    }
 
-        </Pressable>
-    
-    </View>
-    );
-  }
+    render(){
+        let user = auth.currentUser;
+
+        return(
+            <View style={styles.contenedor}>
+                <Text style={styles.titulo}>Mi Perfil</Text>
+                
+                <View style={styles.userInfo}>
+                    <Text>Usuario: {this.state.userName}</Text>
+                    <Text>Email: {user.email}</Text>
+                </View>
+
+                <Text style={styles.subtitulo}>Mis Posts:</Text>
+                
+                <FlatList
+                    data={this.state.userPosteos}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.posteos}>
+                            <Text>{item.data.descripcion}</Text>
+                        </View>
+                    )}
+                />
+
+                <Pressable onPress={() => this.Logout()} style={styles.boton}>
+                    <Text style={styles.texto}>Cerrar Sesión</Text>
+                </Pressable>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-   contenedor: {
-    flex: 1,
-    backgroundColor: "green",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  titulo: {
-    fontSize: 22,
-    color: "white",
-    marginBottom: 20,
-  },
-  boton: {
-    backgroundColor: "white",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-  },
-  textoBoton: {
-    color: "green",
-    fontSize: 16,
-  },
-});
+    contenedor: {
+        padding: 20,
+        marginTop: 50
+    },
+    userInfo: {
+        backgroundColor: "lightblue",
+        padding: 15,
+        borderRadius: 5,
+        marginVertical: 10
+    },
+    posteos: {
+        backgroundColor: "lightgray",
+        padding: 15,
+        borderRadius: 5,
+        marginVertical: 5
+    },
+    boton: {
+        backgroundColor: "red",
+        padding: 15,
+        borderRadius: 5,
+        marginVertical: 10
+    },
+    texto: {
+        color: "white",
+        textAlign: "center"
+    },
+    titulo: {
+        fontSize: 20,
+        textAlign: "center",
+        marginBottom: 20
+    },
+    subtitulo: {
+        fontSize: 16,
+        marginVertical: 10
+    }
+})
 
 export default Profile;
