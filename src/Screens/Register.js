@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { View, Text, Pressable, TextInput  } from "react-native";
 import { StyleSheet} from "react-native"
-import { auth } from "../fireBase/Config"
+import { auth, db } from "../fireBase/Config"
+
 class Register extends Component{
     constructor(props) {
         super(props);
@@ -9,116 +10,107 @@ class Register extends Component{
             email: "",
             password: "",
             userName:"",
-            registered: false,
             error: ""
         }
     }
-    register(email, pass){
-   auth.createUserWithEmailAndPassword(email, pass)
-    .then( response => {
-        this.setState({registered: true});
-        this.props.navigation.navigate("Login");
-     })
-    .catch( error => {
-      this.setState({error: 'Fallo en el registro.'})
-    })
- }
+
+    register(email, pass, userName){
+        auth.createUserWithEmailAndPassword(email, pass)
+        .then( response => {
+            db.collection('users').add({
+                userName: userName,
+                email: email,
+                createdAt: Date.now()
+            })
+            .then(() => {
+                this.props.navigation.navigate("Login");
+            })
+        })
+        .catch( error => {
+            this.setState({error: error.message})
+        })
+    }
+
     onSubmit = () => {
-        console.log("Email:", this.state.email);
-        console.log("Password:", this.state.password);
-         console.log("Password:", this.state.userName);
         this.register(this.state.email, this.state.password, this.state.userName);
     }
-     render(){
-            return(
-                <View style={styles.contenedor}>
-                    <Text style={styles.titulo}>Registrarse</Text>
-                    <Text>Esta es la pantalla donde debe ir el formulario de login. Navegación cruzada a Register</Text>
-                    <Pressable  onPress={
-                        () => this.props.navigation.navigate("Login")}>
-                    <Text style={styles.login}>
-                    No tengo cuenta
-                    </Text>
-                    </Pressable>
-                    <Text>Navegación cruzada a ingresar a la app. Este paso se hará automaticamente cuando veamos la funcionalidad de login</Text>
-                    <Pressable onPress={
-                        () => this.props.navigation.navigate("HomeMenu")}>
-                    <Text style={styles.app}>Ir a la app</Text>
-                    </Pressable>
-                    <TextInput  style={styles.input}
-                        keyboardType="email-address"
-                        placeholder="email"
-                        onChangeText={text => this.setState({email: text})}
-                        value={this.state.email}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        keyboardType="default"
-                        placeholder="userName"
-                        onChangeText={text => this.setState({userName: text})}
-                        value={this.state.userName}
-                     />
-                    <TextInput style={styles.input}
-                        keyboardType="default"
-                        placeholder="password"
-                        secureTextEntry= {true}
-                        onChangeText={text => this.setState({password: text})}
-                        value={this.state.password}
-                     />
-                    <Pressable onPress={() => this.onSubmit()} style={styles.boton}>
-                        <Text style={styles.texto}>Enviar</Text>
-                    </Pressable>
-                </View>
-            )
-        }
+
+    render(){
+        return(
+            <View style={styles.contenedor}>
+                <Text style={styles.titulo}>Registrarse</Text>
+                
+                {this.state.error ? <Text style={styles.error}>{this.state.error}</Text> : null}
+
+                <TextInput  
+                    style={styles.input}
+                    placeholder="Email"
+                    onChangeText={text => this.setState({email: text})}
+                    value={this.state.email}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nombre de usuario"
+                    onChangeText={text => this.setState({userName: text})}
+                    value={this.state.userName}
+                />
+                <TextInput 
+                    style={styles.input}
+                    placeholder="Contraseña"
+                    secureTextEntry={true}
+                    onChangeText={text => this.setState({password: text})}
+                    value={this.state.password}
+                />
+                
+                <Pressable onPress={this.onSubmit} style={styles.boton}>
+                    <Text style={styles.texto}>Registrarse</Text>
+                </Pressable>
+
+                <Pressable onPress={() => this.props.navigation.navigate("Login")}>
+                    <Text style={styles.login}>¿Ya tienes cuenta? Inicia sesión</Text>
+                </Pressable>
+            </View>
+        )
+    }
 }
+
 const styles = StyleSheet.create({
     contenedor: {
-        paddingHorizontal:10,
-        marginTop:20
+        padding: 20,
+        marginTop: 50
     },
-    input:{
-        height: 20,
-        paddingVertical: 15,
-        paddingHorizontal: 10,
+    input: {
+        height: 40,
         borderWidth: 1,
         borderColor: "#ccc",
-        borderStyle: "solid",
-        borderRadius: 6,
-        marginVertical: 10
+        borderRadius: 5,
+        marginVertical: 10,
+        padding: 10
     },
     boton: {
-        backgroundColor: "#28A745",
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        textAlign: "center",
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#28A745"
+        backgroundColor: "blue",
+        padding: 15,
+        borderRadius: 5,
+        marginVertical: 10
     },
     texto: {
-        color: "#fff"
+        color: "white",
+        textAlign: "center"
     },
-    login:{
+    login: {
         textAlign: "center",
-        padding: 16,
-        borderRadius: 10,
-        fontWeight: "bold",
-        backgroundColor: "lightblue"
+        padding: 10,
+        color: "blue"
     },
     titulo: {
-        alignItems: "flex-start",
-        fontWeight: "bold",
-        fontSize: 20
-    },
-    app:{
+        fontSize: 20,
         textAlign: "center",
-        padding: 16,
-        borderRadius: 10,
-        backgroundColor: "orange",
-        fontWeight: "bold",
-        marginTop: 10
+        marginBottom: 20
+    },
+    error: {
+        color: "red",
+        textAlign: "center"
     }
 })
-export default Register
+
+export default Register;
