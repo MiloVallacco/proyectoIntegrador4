@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import { View, Text, FlatList } from "react-native-web";
+import { View, Text, FlatList } from "react-native";
 import { StyleSheet } from "react-native";
 import { db } from "../fireBase/Config";
 import Post from "../Components/Post";
+
 class Home extends Component{
     constructor(props) {
         super(props);
@@ -11,9 +12,11 @@ class Home extends Component{
             loading: true
         }
     }
+    
     componentDidMount() {
         this.obtenerPosts();
     }
+    
     obtenerPosts() {
         db.collection('posts').onSnapshot(
             docs => {
@@ -28,10 +31,10 @@ class Home extends Component{
                     posts: posts,
                     loading: false
                 })
-                console.log("Posts en el estado:", posts);
             }
         )
     }
+    
     render(){
         return(
             <View style={styles.contenedor}>
@@ -45,7 +48,11 @@ class Home extends Component{
                         data={this.state.posts}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <Post data={item.data} />
+                            <Post 
+                                data={item.data} 
+                                id={item.id}
+                                navigation={this.props.navigation}
+                            />
                         )}
                         style={styles.lista}
                     />
@@ -54,6 +61,7 @@ class Home extends Component{
         )
     }
 }
+
 const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
@@ -70,4 +78,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 })
+
 export default Home;
