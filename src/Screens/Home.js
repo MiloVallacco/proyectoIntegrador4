@@ -49,8 +49,7 @@ class Home extends Component{
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
                             <Post 
-                                data={item.data} 
-                                id={item.id}
+                                data={item.data} id={item.id}
                                 navigation={this.props.navigation}
                             />
                         )}

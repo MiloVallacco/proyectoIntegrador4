@@ -20,6 +20,7 @@ class NuevoPost extends Component{
                     user: auth.currentUser.email,
                     userName: userName,
                     descripcion: this.state.descripcion,
+                    likes: [],
                     createdAt: Date.now()
                 })
                 .then(() => {
