@@ -23,6 +23,7 @@ class Register extends Component{
                 createdAt: Date.now()
             })
             .then(() => {
+                auth.signOut();
                 this.props.navigation.navigate("Login");
             })
         })

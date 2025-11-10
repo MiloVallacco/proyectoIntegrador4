@@ -33,7 +33,7 @@ class Post extends Component {
                     <Text style={styles.meGusta}>Me gusta</Text>
                 </Pressable>
                 <Text style={styles.likes}>{cantidadLikes} me gusta</Text>
-                <Text style={styles.fecha}>Creado: {this.props.data.createdAt}</Text>
+                <Text style={styles.fecha}>Creado: {new Date(this.props.data.createdAt).toLocaleString('es-AR' , {hour12: false})}</Text>
                 <Pressable onPress={() => this.props.navigation.navigate("Comentarios", { postId: this.props.id })}>
                     <Text style={styles.comentar}>Comentar</Text>
                 </Pressable>
