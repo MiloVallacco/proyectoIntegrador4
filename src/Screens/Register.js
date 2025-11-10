@@ -32,6 +32,12 @@ class Register extends Component{
     }
 
     onSubmit = () => {
+        this.setState({error: ""});
+      
+        if (this.state.userName.length === 0) {
+            this.setState({error: "El nombre de usuario es obligatorio"});
+            return;
+        }
         this.register(this.state.email, this.state.password, this.state.userName);
     }
 

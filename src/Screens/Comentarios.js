@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { View, Text, Pressable, TextInput, FlatList } from "react-native";
 import { StyleSheet} from "react-native"
 import { auth, db } from "../fireBase/Config"
+import firebase from "firebase";
 
 class Comentarios extends Component{
     constructor(props) {
@@ -18,7 +19,6 @@ class Comentarios extends Component{
 
     getComentarios(){
         let postId = this.props.route.params.postId;
-        
         db.collection('posts').doc(postId).onSnapshot(
             doc => {
                 let comentarios = [];
@@ -32,8 +32,9 @@ class Comentarios extends Component{
 
     agregarComentario(){
         let postId = this.props.route.params.postId;
+        let userEmail = auth.currentUser.email;
         
-        db.collection("users").where("email", "==", auth.currentUser.email).onSnapshot(
+        db.collection("users").where("email", "==", userEmail).onSnapshot(
             docs => {
                 let userName = "";
                 docs.forEach(doc => {
@@ -41,24 +42,17 @@ class Comentarios extends Component{
                 })
                 
                 let nuevoComentario = {
-                    user: auth.currentUser.email,
+                    user: userEmail,
                     userName: userName,
                     comentario: this.state.comentario,
                     createdAt: Date.now()
                 };
                 
-                let nuevosComentarios = [];
-                if(this.state.comentarios) {
-                    nuevosComentarios = this.state.comentarios;
-                }
-                nuevosComentarios.push(nuevoComentario);
-                
                 db.collection('posts').doc(postId).update({
-                    comentarios: nuevosComentarios
+                    comentarios: firebase.firestore.FieldValue.arrayUnion(nuevoComentario)
                 })
                 .then(() => {
                     this.setState({ comentario: "" });
-                    this.props.navigation.navigate("HomeMenu");
                 })
             }
         )
