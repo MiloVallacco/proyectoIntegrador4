@@ -40,9 +40,9 @@ class Home extends Component{
             <View style={styles.contenedor}>
                 <Text style={styles.titulo}>Inicio</Text>
                 {this.state.loading ? (
-                    <Text>Cargando posts...</Text>
+                     <Text style={styles.texto}>Cargando posts...</Text>
                 ) : this.state.posts.length === 0 ? (
-                    <Text>No hay posts todavía</Text>
+                  <Text style={styles.texto}>No hay posts todavía</Text>
                 ) : (
                     <FlatList
                         data={this.state.posts}
@@ -62,20 +62,27 @@ class Home extends Component{
 }
 
 const styles = StyleSheet.create({
-    contenedor: {
-        flex: 1,
-        paddingHorizontal: 10,
-        paddingTop: 20
-    },
-    titulo: {
-        fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 20,
-        textAlign: "center"
-    },
-    lista: {
-        flex: 1
-    }
+  contenedor: {
+      flex: 1,
+      backgroundColor: "#000000"
+  },
+  titulo: {
+      fontWeight: "bold",
+      fontSize: 20,
+      color: "#FFFFFF",
+      padding: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: "#2F3336"
+  },
+  lista: {
+      flex: 1
+  },
+  texto: {
+      color: "#FFFFFF",
+      textAlign: "center",
+      marginTop: 50,
+      fontSize: 16
+  }
 })
 
 export default Home;

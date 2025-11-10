@@ -40,7 +40,7 @@ class NuevoPost extends Component{
           return (
             <View style={styles.contenedor}>
                 <Text style={styles.titulo}>Crear Nuevo Post</Text>
-                <Text>Compartí lo que estás pensando</Text>
+                <Text style={styles.subtitulo}>Compartí lo que estás pensando</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Escribe tu mensaje aquí"
@@ -59,46 +59,53 @@ class NuevoPost extends Component{
 }
 const styles = StyleSheet.create({
     contenedor: {
-        paddingHorizontal: 10,
-        marginTop: 20
+        flex: 1,
+        backgroundColor: "#000000",
+        padding: 20,
+        paddingTop: 60
     },
     titulo: {
         fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 10
+        fontSize: 24,
+        color: "#FFFFFF",
+        marginBottom: 20
     },
     input: {
-        height: 100,
+        minHeight: 120,
+        backgroundColor: "#202327",
         paddingVertical: 15,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
         borderWidth: 1,
-        borderColor: "#ccc",
-        borderStyle: "solid",
-        borderRadius: 6,
-        marginVertical: 10
+        borderColor: "#2F3336",
+        borderRadius: 4,
+        marginVertical: 15,
+        color: "#FFFFFF",
+        fontSize: 16,
+        textAlignVertical: "top"
     },
     boton: {
-        backgroundColor: "#28A745",
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        textAlign: "center",
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#28A745",
-        marginTop: 10
+        backgroundColor: "#1DA1F2",
+        paddingVertical: 15,
+        borderRadius: 25,
+        marginTop: 20,
+        alignItems: "center"
     },
     texto: {
-        color: "#fff",
-        textAlign: "center"
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     volver: {
         textAlign: "center",
-        padding: 16,
-        borderRadius: 10,
-        backgroundColor: "lightblue",
-        fontWeight: "bold",
+        padding: 15,
+        color: "#1DA1F2",
+        fontSize: 15,
         marginTop: 20
+    },
+    subtitulo: {
+        color: "#71767A",
+        fontSize: 15,
+        marginBottom: 15
     }
 })
 export default NuevoPost;

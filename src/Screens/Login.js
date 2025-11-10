@@ -80,50 +80,54 @@ class Login extends Component{
 }
 const styles = StyleSheet.create({
     contenedor: {
-        paddingHorizontal:10,
-        marginTop:20
+        flex: 1,
+        backgroundColor: "#000000",
+        paddingHorizontal: 20,
+        paddingTop: 60
     },
     input:{
-        height: 20,
+        height: 50,
+        backgroundColor: "#202327",
         paddingVertical: 15,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
         borderWidth: 1,
-        borderColor: "#ccc",
-        borderStyle: "solid",
-        borderRadius: 6,
-        marginVertical: 10
+        borderColor: "#2F3336",
+        borderRadius: 4,
+        marginVertical: 8,
+        color: "#FFFFFF",
+        fontSize: 16
     },
     boton: {
-        backgroundColor: "#28A745",
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        textAlign: "center",
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#28A745"
+        backgroundColor: "#1DA1F2",
+        paddingVertical: 15,
+        borderRadius: 25,
+        marginVertical: 15,
+        alignItems: "center"
     },
     texto: {
-        color: "#fff"
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     register:{
         textAlign: "center",
-        padding: 16,
-        borderRadius: 10,
-        backgroundColor: "lightblue",
-        fontWeight: "bold",
-        marginTop: 10,
-        marginBottom: 10
+        padding: 15,
+        color: "#1DA1F2",
+        fontSize: 15,
+        marginTop: 20
     },
     titulo: {
         fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 10
+        fontSize: 30,
+        color: "#FFFFFF",
+        marginBottom: 40,
+        textAlign: "center"
     },
     error: {
-        color: "red",
+        color: "#F4212E",
         marginBottom: 10,
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 14
     }
 })
 export default Login

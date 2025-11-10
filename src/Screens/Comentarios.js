@@ -82,7 +82,7 @@ class Comentarios extends Component{
                     renderItem={({ item }) => (
                         <View style={styles.comentario}>
                             <Text style={styles.userName}>{item.userName}</Text>
-                            <Text>{item.comentario}</Text>
+                            <Text style={styles.comentarioText}>{item.comentario}</Text>
                         </View>
                     )}
                 />
@@ -93,37 +93,64 @@ class Comentarios extends Component{
 
 const styles = StyleSheet.create({
     contenedor: {
+        flex: 1,
+        backgroundColor: "#000000",
         padding: 20,
-        marginTop: 50
+        paddingTop: 60
     },
     input: {
-        height: 60,
+        minHeight: 60,
+        backgroundColor: "#202327",
         borderWidth: 1,
-        borderColor: "#ccc",
+        borderColor: "#2F3336",
+        borderRadius: 4,
         marginVertical: 10,
-        padding: 10
+        padding: 15,
+        color: "#FFFFFF",
+        fontSize: 16
     },
     boton: {
-        backgroundColor: "blue",
+        backgroundColor: "#1DA1F2",
         padding: 15,
-        marginVertical: 10
+        borderRadius: 25,
+        marginVertical: 15,
+        alignItems: "center"
     },
     texto: {
-        color: "white",
-        textAlign: "center"
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     titulo: {
-        fontSize: 20,
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#FFFFFF",
         textAlign: "center",
-        marginBottom: 20
+        marginBottom: 30
     },
     comentario: {
-        backgroundColor: "lightgray",
+        backgroundColor: "#202327",
         padding: 15,
-        marginVertical: 5
+        borderRadius: 12,
+        marginVertical: 8,
+        borderWidth: 1,
+        borderColor: "#2F3336"
     },
     userName: {
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        fontSize: 15,
+        marginBottom: 5
+    },
+    subtitulo: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        marginVertical: 15
+    },
+    comentarioText: {
+        color: "#FFFFFF",
+        fontSize: 15
     }
 })
 

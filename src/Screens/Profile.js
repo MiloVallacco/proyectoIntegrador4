@@ -65,8 +65,9 @@ class Profile extends Component{
                 <Text style={styles.titulo}>Mi Perfil</Text>
                 
                 <View style={styles.userInfo}>
-                    <Text>Usuario: {this.state.userName}</Text>
-                    <Text>Email: {user.email}</Text>
+                    <Text style={styles.infoText}>Usuario: {this.state.userName}</Text>
+                    <Text style={styles.infoText}>Email: {user.email}</Text>
+                    
                 </View>
 
                 <Text style={styles.subtitulo}>Mis Posts:</Text>
@@ -76,7 +77,7 @@ class Profile extends Component{
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (
                         <View style={styles.posteos}>
-                            <Text>{item.data.descripcion}</Text>
+                             <Text style={styles.postText}>{item.data.descripcion}</Text>
                         </View>
                     )}
                 />
@@ -91,39 +92,60 @@ class Profile extends Component{
 
 const styles = StyleSheet.create({
     contenedor: {
+        flex: 1,
+        backgroundColor: "#000000",
         padding: 20,
-        marginTop: 50
+        paddingTop: 60
     },
     userInfo: {
-        backgroundColor: "lightblue",
-        padding: 15,
-        borderRadius: 5,
-        marginVertical: 10
+        backgroundColor: "#202327",
+        padding: 20,
+        borderRadius: 12,
+        marginVertical: 15,
+        borderWidth: 1,
+        borderColor: "#2F3336"
     },
     posteos: {
-        backgroundColor: "lightgray",
+        backgroundColor: "#202327",
         padding: 15,
-        borderRadius: 5,
-        marginVertical: 5
+        borderRadius: 12,
+        marginVertical: 8,
+        borderWidth: 1,
+        borderColor: "#2F3336"
     },
     boton: {
-        backgroundColor: "red",
+        backgroundColor: "#F4212E",
         padding: 15,
-        borderRadius: 5,
-        marginVertical: 10
+        borderRadius: 25,
+        marginVertical: 20,
+        alignItems: "center"
     },
     texto: {
-        color: "white",
-        textAlign: "center"
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     titulo: {
-        fontSize: 20,
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#FFFFFF",
         textAlign: "center",
-        marginBottom: 20
+        marginBottom: 30
     },
     subtitulo: {
-        fontSize: 16,
-        marginVertical: 10
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        marginVertical: 15
+    },
+    infoText: {
+        color: "#FFFFFF",
+        fontSize: 15,
+        marginVertical: 5
+    },
+    postText: {
+        color: "#FFFFFF",
+        fontSize: 15
     }
 })
 

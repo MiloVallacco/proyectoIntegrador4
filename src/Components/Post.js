@@ -44,38 +44,44 @@ class Post extends Component {
 
 const styles = StyleSheet.create({
     contenedor: {
-        backgroundColor: "lightblue",
+        backgroundColor: "#000000",
         padding: 15,
-        marginVertical: 8,
-        borderRadius: 8
+        borderBottomWidth: 1,
+        borderBottomColor: "#2F3336"
     },
     usuario: {
         fontWeight: "bold",
-        fontSize: 16
+        fontSize: 15,
+        color: "#FFFFFF",
+        marginBottom: 5
     },
     descripcion: {
-        fontSize: 14,
-        marginVertical: 8
+        fontSize: 15,
+        color: "#FFFFFF",
+        marginVertical: 10,
+        lineHeight: 20
     },
     meGusta: {
-        color: "blue",
+        color: "#1DA1F2",
         fontSize: 14,
-        marginTop: 8,
-        fontWeight: "bold"
+        marginTop: 10,
+        fontWeight: "600"
     },
     likes: {
-        fontSize: 12,
-        color: "#666",
-        marginTop: 4
+        fontSize: 13,
+        color: "#71767A",
+        marginTop: 5
     },
     fecha: {
-        color: "#888",
-        fontSize: 10
+        color: "#71767A",
+        fontSize: 13,
+        marginTop: 5
     },
     comentar: {
-        color: "blue",
-        textAlign: "right",
-        marginTop: 10
+        color: "#1DA1F2",
+        fontSize: 14,
+        marginTop: 10,
+        fontWeight: "600"
     }
 })
 

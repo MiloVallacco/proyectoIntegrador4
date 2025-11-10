@@ -83,40 +83,52 @@ class Register extends Component{
 
 const styles = StyleSheet.create({
     contenedor: {
+        flex: 1,
+        backgroundColor: "#000000",
         padding: 20,
-        marginTop: 50
+        paddingTop: 60
     },
     input: {
-        height: 40,
+        height: 50,
+        backgroundColor: "#202327",
         borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 5,
-        marginVertical: 10,
-        padding: 10
+        borderColor: "#2F3336",
+        borderRadius: 4,
+        marginVertical: 8,
+        paddingHorizontal: 15,
+        color: "#FFFFFF",
+        fontSize: 16
     },
     boton: {
-        backgroundColor: "blue",
+        backgroundColor: "#1DA1F2",
         padding: 15,
-        borderRadius: 5,
-        marginVertical: 10
+        borderRadius: 25,
+        marginVertical: 15,
+        alignItems: "center"
     },
     texto: {
-        color: "white",
-        textAlign: "center"
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     login: {
         textAlign: "center",
-        padding: 10,
-        color: "blue"
+        padding: 15,
+        color: "#1DA1F2",
+        fontSize: 15
     },
     titulo: {
-        fontSize: 20,
+        fontSize: 30,
+        fontWeight: "bold",
+        color: "#FFFFFF",
         textAlign: "center",
-        marginBottom: 20
+        marginBottom: 40
     },
     error: {
-        color: "red",
-        textAlign: "center"
+        color: "#F4212E",
+        textAlign: "center",
+        marginBottom: 10,
+        fontSize: 14
     }
 })
 
